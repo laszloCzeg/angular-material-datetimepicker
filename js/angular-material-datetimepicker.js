@@ -1095,8 +1095,11 @@
               var closestTarget = e.currentTarget.closest('div'),
               clientRect = closestTarget.getClientRects()[0];
 
-              if (isTouchSupported) e = e.changedTouches[0];
-              
+              if (isTouchSupported)
+                e = e.originalEvent && e.originalEvent.changedTouches && e.originalEvent.changedTouches[0] ?
+                  e.originalEvent.changedTouches[0] :
+                  e.changedTouches[0];
+
               var x = ((closestTarget.offsetWidth / 2) - (e.pageX - clientRect.left)),
                   y = ((e.pageY - clientRect.top) - (closestTarget.offsetHeight / 2));
               
